@@ -1,9 +1,11 @@
 version: '3.1'
 
 services:
-    mongodb:
+    mongo:
         container_name: mongo
-        image: mongo:latest
+        build: .
+        volumes:
+            - ./backup/:/backup
         restart: unless-stopped
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
