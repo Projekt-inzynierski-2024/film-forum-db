@@ -71,8 +71,6 @@ for film in films:
         "filmId": inserted_film.inserted_id,
         "length": film["length"],
         "year": film["year"],
-        "episodeNumber": 0,
-        "seasonNumber": 0
     }
 
     db.episode.insert_one(episode)
