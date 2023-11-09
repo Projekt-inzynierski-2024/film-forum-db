@@ -7,8 +7,8 @@ services:
         ports:
             - 27017:27017
         volumes:
-            - ./restore.sh:/docker-entrypoint-initdb.d/restore.sh
-            - ./backup/:/backup
+            - ./mongo/restore.sh:/docker-entrypoint-initdb.d/restore.sh
+            - ./mongo/backup/:/backup
         restart: unless-stopped
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
@@ -20,8 +20,8 @@ services:
         ports:
             - 30017:27017
         volumes:
-            - ./restore.sh:/docker-entrypoint-initdb.d/restore.sh
-            - ./backup/:/backup
+            - ./mongo/restore.sh:/docker-entrypoint-initdb.d/restore.sh
+            - ./mongo/backup/:/backup
         restart: unless-stopped
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
@@ -39,3 +39,13 @@ services:
             ME_CONFIG_BASICAUTH_USERNAME: admin
             ME_CONFIG_BASICAUTH_PASSWORD : ${EXPRESS_PASSWORD}
             ME_CONFIG_MONGODB_URL: mongodb://root:${MONGODB_PASSWORD}@mongo:27017/
+
+    mssql:
+        container_name: mssql
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+            - 1433:1433
+        restart: unless-stopped
+        environment:
+            ACCEPT_EULA: Y
+            MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
