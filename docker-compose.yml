@@ -18,7 +18,7 @@ services:
         container_name: mongo-tests
         image: mongo:latest
         ports:
-            - 30017:27017
+            - 37017:27017
         volumes:
             - ./mongo/restore.sh:/docker-entrypoint-initdb.d/restore.sh
             - ./mongo/backup/:/backup
@@ -45,6 +45,20 @@ services:
         image: mcr.microsoft.com/mssql/server:2022-latest
         ports:
             - 1433:1433
+        volumes:
+            - ./mssql/backup.sql:/backup.sql
+            - ./mssql/entrypoint.sh:/entrypoint.sh
+        restart: unless-stopped
+        environment:
+            ACCEPT_EULA: Y
+            MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+        entrypoint: [/entrypoint.sh]
+
+    mssql-tests:
+        container_name: mssql-tests
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+            - 2433:1433
         volumes:
             - ./mssql/backup.sql:/backup.sql
             - ./mssql/entrypoint.sh:/entrypoint.sh
