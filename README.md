@@ -23,7 +23,7 @@ docker compose -f docker-compose.yml up -d
  - interfejs web : `http://localhost:8081`
 
  - Connection string do bazy mongo: `root:123456@localhost:27017`
- - Connection string do bazy mssql: `Server=localhost;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
+ - Connection string do bazy mssql: `Server=localhost,1433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
 
 ## bazy testowe
 
