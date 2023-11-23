@@ -1,32 +1,33 @@
 # film-forum-db
 SQL/noSQL queries for FilmForum databases
 
-## bazy
+## Databases
 
-Aby odpalić baze mongo, interfejs mongo-express oraz bazę mssql:
- - Sklonuj to repo
- - wejdź do głównego folderu `film-forum-db/`
- - utwórz plik `.env`, w którym umieścisz hasła do bazy np.:
+To run MongoDB database, mongo-express interface and MS SQL database:
+ - Clone this repository
+ - Enter main directory `film-forum-db/`
+ - Create a file `.env`, and paste databases' passwords for example.:
 
 ```bash
-MONGODB_PASSWORD="123456" # hasło do bazy dla użytkownika root
-EXPRESS_PASSWORD="123456" # hasło do interfejsu web dla użytkownika admin
-MSSQL_SA_PASSWORD="zaq1@WSX" # hasło do bazy mssql (musi być 'trudne' inaczej docker nie odpali)
+MONGODB_PASSWORD="123456" # password to access user interface for root
+EXPRESS_PASSWORD="123456" # password to access user interface for admin
+MSSQL_SA_PASSWORD="zaq1@WSX" # password for ms sql database (must be difficult otherwise it won't run)
 ```
  
- - uruchom kontenery za pomocą komendy
+ - run the containers using command
 
  ```
 docker compose -f docker-compose.yml up -d
  ```
 
- - interfejs web : `http://localhost:8081`
+## Productions databases
+ - web interface : `http://localhost:8081`
 
- - Connection string do bazy mongo: `root:123456@localhost:27017`
- - Connection string do bazy mssql: `Server=localhost,1433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
+ - Connection string to MongoDB database: `root:123456@localhost:27017`
+ - Connection string to MS SQL database: `Server=localhost,1433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
 
-## bazy testowe
+## Testing databases
 
- - Connection string do bazy mongo-tests: `root:123456@localhost:37017`
- - Connection string do bazy mssql-tests: `Server=localhost,2433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
+ - Connection string to MongoDB database: `root:123456@localhost:37017`
+ - Connection string to MS SQL database: `Server=localhost,2433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
 
