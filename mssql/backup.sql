@@ -78,8 +78,8 @@ CREATE TABLE [dbo].[users](
     [email] [nvarchar](200) NOT NULL,
     [password] [nvarchar](200) NOT NULL,
     [2fa]   [bit] DEFAULT(0) NOT NULL,
-    [recover_password_token] [datetime] NULL,
-    [recover_password_token_expiration] [nvarchar](200) NULL,
+    [recover_password_token] [nvarchar](200) NULL,
+    [recover_password_token_expiration] [datetime] NULL,
     [created_at] [datetime] NOT NULL,
  CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
 (
