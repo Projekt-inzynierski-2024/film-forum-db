@@ -60,3 +60,10 @@ services:
         environment:
             ACCEPT_EULA: Y
             MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+
+    api:
+        container_name: film-forum-api
+        build: api/
+        ports:
+            - 80:80
+        restart: unless-stopped
