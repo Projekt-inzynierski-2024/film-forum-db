@@ -3,6 +3,7 @@ import json
 import uuid
 import string
 import random
+import pyotp
 
 
 url = "http://127.0.0.1:80"
@@ -28,9 +29,13 @@ def rand_str(n: int):
     return password
 
 
-def login(email, password):
+def login(email, password, totp):
     login_url = f"{url}/login"
     body = {"email": email, "password": password}
+
+    if totp is not None:
+        body["totpCode"] = totp
+
     result = session.post(login_url, json.dumps(body))
     try:
         obj = json.loads(result.text)
@@ -53,6 +58,19 @@ def register(username, email, password):
         obj["jwt"] = None
         print(result.text)
     return (result.status_code, obj["jwt"])
+
+
+def get_2fa():
+    mfa_url = f"{url}/api/user/2fa"
+    result = session.get(mfa_url)
+    return (result.status_code, result.text)
+
+
+def set_2fa(code):
+    mfa_url = f"{url}/api/user/2fa"
+    body = {"totpCode": code, "multifactorAuthentication": True}
+    result = session.post(mfa_url, json.dumps(body))
+    return result.status_code
 
 
 def get_films():
@@ -213,13 +231,31 @@ password = rand_str(10)
 
 test("REGISTER", code, code == 201)
 
-(code, jwt) = login(email, password)
+(code, jwt) = login(email, password, None)
 
 test("LOGIN", code, code == 200)
 
 session.headers.update({"Authorization": f"Bearer {jwt}"})
 
 # 2fa
+
+(code, otpauth) = get_2fa()
+
+test("GET OTPAUTH", code, code == 200)
+
+totp = pyotp.parse_uri(otpauth)
+
+code = set_2fa(totp.now())
+
+test("SET 2FA", code, code == 200)
+
+(code, jwt) = login(email, password, None)
+
+test("LOGIN WITHOUT TOTP", code, code == 400)
+
+(code, jwt) = login(email, password, totp.now())
+
+test("LOGIN WITH TOTP", code, code == 200)
 
 # films
 
