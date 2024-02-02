@@ -10,8 +10,10 @@ To run MongoDB database, mongo-express interface and MS SQL database:
  - Create a file `.env`, and paste databases' passwords for example.:
 
 ```bash
-MONGODB_PASSWORD="123456" # password to access user interface for root
-EXPRESS_PASSWORD="123456" # password to access user interface for admin
+MONGODB_USERNAME="root" # mongodb username
+MONGODB_PASSWORD="zaq1@WSX" # mongodb password
+EXPRESS_USERNAME="root" # mongo express username
+EXPRESS_PASSWORD="zaq1@WSX" # mongo express password
 MSSQL_SA_PASSWORD="zaq1@WSX" # password for ms sql database (must be difficult otherwise it won't run)
 ```
  

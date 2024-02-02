@@ -11,7 +11,7 @@ services:
             - ./mongo/backup/:/backup
         restart: unless-stopped
         environment:
-            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
 
     mongo-tests:
@@ -21,7 +21,7 @@ services:
             - 37017:27017
         restart: unless-stopped
         environment:
-            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
             MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
 
     mongo-express:
@@ -31,11 +31,11 @@ services:
             - 8081:8081
         restart: unless-stopped
         environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USERNAME}
             ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
-            ME_CONFIG_BASICAUTH_USERNAME: admin
+            ME_CONFIG_BASICAUTH_USERNAME: ${EXPRESS_USERNAME}
             ME_CONFIG_BASICAUTH_PASSWORD : ${EXPRESS_PASSWORD}
-            ME_CONFIG_MONGODB_URL: mongodb://root:${MONGODB_PASSWORD}@mongo:27017/
+            ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongo:27017/
 
     mssql:
         container_name: mssql
@@ -67,3 +67,7 @@ services:
         ports:
             - 80:80
         restart: unless-stopped
+        environment:
+            MONGODB_USERNAME: ${MONGODB_USERNAME}
+            MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+            MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
