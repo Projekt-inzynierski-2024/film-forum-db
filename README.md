@@ -2,12 +2,11 @@
 
 Docker containers for film-forum databases and api.
 
-## Databases
+## Installation
 
-To run MongoDB database, mongo-express interface and MS SQL database:
- - Clone this repository
- - Enter main directory `film-forum-db/`
- - Create a file `.env`, and paste databases' passwords for example.:
+ 1. Clone this repository
+ 2. Enter `film-forum-db/` directory
+ 3. Create a `.env` file with passwords e.g.:
 
 ```bash
 MONGODB_USERNAME="root" # mongodb username
@@ -17,7 +16,7 @@ EXPRESS_PASSWORD="zaq1@WSX" # mongo express password
 MSSQL_SA_PASSWORD="zaq1@WSX" # password for ms sql database (must be difficult otherwise it won't run)
 ```
  
- - run containers using commands:
+ 4. run docker containers 
 
  ```
  # for testing
@@ -35,16 +34,11 @@ MSSQL_SA_PASSWORD="zaq1@WSX" # password for ms sql database (must be difficult o
 
  ```
 
-## Mongo web interface
+## Requirements
 
-  Mongo express is web interface for mongo db. It's suitable for testing and works here -> `http://localhost:8081`
+This repo uses latest mongo container which requires CPU with AVX support.
+There may be some issues while running mssql container on linux with kernel >= 6.7 (see [https://github.com/microsoft/mssql-docker/issues/868](https://github.com/microsoft/mssql-docker/issues/868))
 
-## Production databases
+## LICENSE
 
- - Connection string to MongoDB database: `root:123456@localhost:27017`
- - Connection string to MS SQL database: `Server=localhost,1433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
-
-## Testing databases
-
- - Connection string to MongoDB database: `root:123456@localhost:37017`
- - Connection string to MS SQL database: `Server=localhost,2433;Database=UsersDb;Uid=SA;Pwd=zaq1@WSX;TrustServerCertificate=True`
+[MIT](./LICENSE)
